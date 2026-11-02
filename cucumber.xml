@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="143.218" tests="15" skipped="0" failures="1" errors="0">
+<testcase classname="User registration" name="Verify that user can register successfully" time="15.458">
+<system-out><![CDATA[
+Given the user is on the home page..........................................passed
+When the user clicks on the Signup and Login link...........................passed
+And the user enters a new name and email address in the Signup section......passed
+And the user clicks the Signup button.......................................passed
+And the user fills all required fields on the account creation page.........passed
+And the user clicks Create Account..........................................passed
+Then the "ACCOUNT CREATED!" message appears.................................passed
+]]></system-out>
+</testcase>
+<testcase classname="User registration" name="Signup with an existing email is rejected" time="5.221">
+<system-out><![CDATA[
+Given a registered user exists..............................................passed
+And the user is on the home page............................................passed
+When the user clicks on the Signup and Login link...........................passed
+And the user enters a new name and the existing email address in the Signup section.passed
+And the user clicks the Signup button.......................................passed
+Then the error "Email Address already exist!" is displayed..................passed
+]]></system-out>
+</testcase>
+<testcase classname="Login" name="Verify that registered user can log in successfully" time="7.16">
+<system-out><![CDATA[
+Given a registered user exists..............................................passed
+And the user is on the home page............................................passed
+When the user clicks on the Signup and Login link...........................passed
+And the user logs in with the registered email and password.................passed
+Then the user sees the message "Logged in as <username>"....................passed
+]]></system-out>
+</testcase>
+<testcase classname="Login" name="Verify login fails with incorrect data" time="5.457">
+<system-out><![CDATA[
+Given a registered user exists..............................................passed
+And the user is on the home page............................................passed
+When the user clicks on the Signup and Login link...........................passed
+And the user logs in with email "wrong.user@example.com" and password "WrongPass123".passed
+Then the error "Your email or password is incorrect!" is displayed..........passed
+]]></system-out>
+</testcase>
+<testcase classname="Login" name="Login with incorrect password" time="4.124">
+<system-out><![CDATA[
+Given a registered user exists..............................................passed
+And the user is on the home page............................................passed
+When the user clicks on the Signup and Login link...........................passed
+And the user logs in with the registered email and an incorrect password....passed
+Then the error "Your email or password is incorrect!" is displayed..........passed
+]]></system-out>
+</testcase>
+<testcase classname="Logout" name="Verify logout" time="7.975">
+<system-out><![CDATA[
+Given a registered user exists..............................................passed
+And the user is on the home page............................................passed
+And the user is logged in...................................................passed
+When the user clicks Logout.................................................passed
+Then the user is redirected to the login and signup page....................passed
+]]></system-out>
+</testcase>
+<testcase classname="Products" name="Verify all products and product details" time="4.737">
+<system-out><![CDATA[
+Given the user is on the home page..........................................passed
+When the user opens the Products page.......................................passed
+Then the "ALL PRODUCTS" heading is displayed................................passed
+And the products list is displayed..........................................passed
+When the user opens the details of the first product........................passed
+Then the product details match the selected product.........................passed
+]]></system-out>
+</testcase>
+<testcase classname="Products" name="Invalid search text returns no products" time="5.583">
+<system-out><![CDATA[
+Given the user is on the home page..........................................passed
+When the user opens the Products page.......................................passed
+And the user searches for "zzzxxyy-no-such-product".........................passed
+Then the "SEARCHED PRODUCTS" heading is displayed...........................passed
+And no products are listed..................................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Cart and checkout" name="Verify that user can add products to cart and complete checkout" time="16.834">
+<system-out><![CDATA[
+Given a registered user exists..............................................passed
+And the user is on the home page............................................passed
+And the user is logged in...................................................passed
+When the user opens the Products page.......................................passed
+And the user hovers over a product and clicks Add to Cart...................passed
+Then the product added message is displayed.................................passed
+When the user opens the cart from the confirmation..........................passed
+Then the cart contains the added product....................................passed
+When the user proceeds to checkout..........................................passed
+And the user validates the delivery address and order review................passed
+And the user enters an order comment and clicks Place Order.................passed
+And the user enters valid payment details and confirms the order............passed
+Then the order confirmation "Your order has been placed successfully!" is displayed.passed
+]]></system-out>
+</testcase>
+<testcase classname="Cart and checkout" name="Checkout with empty cart" time="6.192">
+<system-out><![CDATA[
+Given a registered user exists..............................................passed
+And the user is on the home page............................................passed
+And the user is logged in...................................................passed
+When the user opens the cart................................................passed
+Then the cart is empty......................................................passed
+And the Proceed To Checkout option is not available.........................passed
+]]></system-out>
+</testcase>
+<testcase classname="Cart and checkout" name="Attempt checkout without login" time="18.953">
+<failure type="org.openqa.selenium.TimeoutException" message="Expected condition failed: waiting for element to be clickable: By.xpath: //div[@id='cartModal']//a[@href='/view_cart'] (tried for 15 second(s) with 500 milliseconds interval)
+Build info: version: '4.25.0', revision: '8a8aea2337'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.10'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 156.0.8078.74, chrome: {chromedriverVersion: 156.0.8078.80 (fb096c0011f9..., userDataDir: C:\Users\NEXT-S~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:62475}, goog:processID: 15728, networkConnectionEnabled: false, pageLoadStrategy: eager, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62475/devtoo..., se:cdpVersion: 156.0.8078.74, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: a03f7766026f81fecec9f9dc7240f332">
+<![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //div[@id='cartModal']//a[@href='/view_cart'] (tried for 15 second(s) with 500 milliseconds interval)
+Build info: version: '4.25.0', revision: '8a8aea2337'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.10'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 156.0.8078.74, chrome: {chromedriverVersion: 156.0.8078.80 (fb096c0011f9..., userDataDir: C:\Users\NEXT-S~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:62475}, goog:processID: 15728, networkConnectionEnabled: false, pageLoadStrategy: eager, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62475/devtoo..., se:cdpVersion: 156.0.8078.74, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: a03f7766026f81fecec9f9dc7240f332
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.automationexercise.pages.BasePage.click(BasePage.java:52)
+	at com.automationexercise.pages.ProductsPage.clickViewCart(ProductsPage.java:85)
+	at com.automationexercise.steps.ProductSteps.theUserOpensTheCartFromTheConfirmation(ProductSteps.java:79)
+	at ✽.the user opens the cart from the confirmation(file:///C:/Users/NEXT-STORE/Downloads/automationexercise-final-project%20(2)/automationexercise-final-project/src/test/resources/features/05_cart_checkout.feature:39)
+]]>
+</failure>
+<system-out><![CDATA[
+Given the user is on the home page..........................................passed
+When the user opens the Products page.......................................passed
+And the user hovers over a product and clicks Add to Cart...................passed
+And the user opens the cart from the confirmation...........................failed
+And the user proceeds to checkout...........................................skipped
+Then the login required prompt is displayed.................................skipped
+When the user chooses Register and Login from the prompt....................skipped
+Then the user is redirected to the login and signup page....................skipped
+]]></system-out>
+</testcase>
+<testcase classname="Cart and checkout" name="Invalid payment information does not place the order" time="13.3">
+<system-out><![CDATA[
+Given a registered user exists..............................................passed
+And the user is on the home page............................................passed
+And the user is logged in...................................................passed
+When the user opens the Products page.......................................passed
+And the user hovers over a product and clicks Add to Cart...................passed
+And the user opens the cart from the confirmation...........................passed
+And the user proceeds to checkout...........................................passed
+And the user enters an order comment and clicks Place Order.................passed
+And the user submits the payment form with empty payment details............passed
+Then the order is not placed................................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Contact Us" name="Verify Contact Us form" time="5.171">
+<system-out><![CDATA[
+Given the user is on the home page..........................................passed
+When the user opens the Contact Us page.....................................passed
+And the user enters valid contact form data.................................passed
+And the user submits the contact form.......................................passed
+Then the contact confirmation "Success! Your details have been submitted successfully." is displayed.passed
+]]></system-out>
+</testcase>
+<testcase classname="Contact Us" name="Invalid Contact Us submission" time="23.288">
+<system-out><![CDATA[
+Given the user is on the home page..........................................passed
+When the user opens the Contact Us page.....................................passed
+And the user enters contact form data with an invalid email address.........passed
+And the user submits the contact form.......................................passed
+Then the contact form is not submitted......................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Test Cases page" name="Verify Test Cases page" time="3.196">
+<system-out><![CDATA[
+Given the user is on the home page..........................................passed
+When the user clicks Test Cases.............................................passed
+Then the Test Cases page loads successfully.................................passed
+]]></system-out>
+</testcase>
+</testsuite>
